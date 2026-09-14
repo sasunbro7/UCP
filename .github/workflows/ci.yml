@@ -1,4 +1,4 @@
-name: Build and test
+name: Build, test, and package
 
 on:
   push:
@@ -37,3 +37,28 @@ jobs:
             valgrind --leak-check=full --show-leak-kinds=all \
               --errors-for-leak-kinds=all --error-exitcode=99 \
               ./dungeon map.txt >/dev/null
+
+      - name: Package clean assignment ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: UCP_Assignment
+          path: |
+            README.md
+            main.c
+            game.c
+            game.h
+            map.c
+            map.h
+            linkedList.c
+            linkedList.h
+            terminal.c
+            terminal.h
+            color.c
+            color.h
+            newSleep.c
+            newSleep.h
+            makefile
+            map.txt
+            tests.sh
+          if-no-files-found: error
+          retention-days: 90
