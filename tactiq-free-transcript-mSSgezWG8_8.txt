@@ -1,0 +1,186 @@
+# tactiq.io free youtube transcript
+# 3 UNDO feature
+# https://www.youtube.com/watch/mSSgezWG8_8
+
+00:00:00.880 All right. So, hi everyone. All right.
+00:00:02.800 So, in this supplementary video, uh I
+00:00:05.279 want to talk about like the undo
+00:00:08.000 feature, okay, that you will implement
+00:00:10.719 for the game. Okay. First, let's run the
+00:00:13.920 program. Okay. So, once again, this is
+00:00:16.000 like the interface that we have. Okay.
+00:00:18.080 So, in the in the quick demonstration
+00:00:20.320 video, I did not showcase this feature.
+00:00:23.840 Okay. So, once again, in this video, I
+00:00:25.600 will talk about this in more detail.
+00:00:28.400 Okay. But first of all, so what is undo
+00:00:30.480 exactly? So basically undo allows you to
+00:00:33.760 basically Yeah, basically what uh what
+00:00:36.079 it says it undo the movement of the
+00:00:39.600 player. Okay, for example, let's say I
+00:00:43.040 go for like okay, go to the right here
+00:00:46.559 and then go up here and then let's say I
+00:00:50.160 go right. So I will fall down and then I
+00:00:52.960 go right one more time. Okay, so that's
+00:00:55.120 basically what I just did. So I just go
+00:00:57.199 uh from here to the ladder and then go
+00:00:59.600 up and then fall down and then go to the
+00:01:02.559 right. Okay. So let's say I was say hm
+00:01:05.280 okay uh I don't want to uh so okay I
+00:01:07.840 think falling down maybe is a mistake
+00:01:09.439 here. I just want to go back again like
+00:01:11.680 two steps before. Okay. And that's when
+00:01:14.320 you press U to undo. So if I press U
+00:01:17.280 right now like uh like once. Okay. So it
+00:01:20.080 will go back to the previous step. If I
+00:01:22.799 do U one more time, it will come back to
+00:01:26.320 the previous step before it fall down.
+00:01:29.920 Okay. So let's do it one more time. See,
+00:01:32.720 as you can see, suddenly let the P just
+00:01:34.479 go up. Yeah. So it's not like flying up.
+00:01:36.400 So basically what happened? It just
+00:01:37.600 simply undo to the periphery step just
+00:01:40.479 before the fall. And if I keep pressing
+00:01:42.880 U again and again, then it just simply
+00:01:45.520 coming back until the beginning of the
+00:01:47.680 game. Okay. So right now this is back to
+00:01:49.840 the beginning of the game. So if I press
+00:01:51.360 U then nothing will happen. Okay.
+00:01:53.680 Because there's nothing more to undo.
+00:01:56.159 Okay. Uh so let's try again. So let's
+00:01:58.240 say I go up here. Maybe I go like
+00:02:01.360 falling here and then falling here.
+00:02:04.640 Yeah. And maybe falling one more time
+00:02:06.399 here and come here. Okay. Now if I press
+00:02:09.598 U again and again. So I just go back
+00:02:12.319 back to the ladder back again to the
+00:02:14.640 block and come here and then go up here
+00:02:17.040 again. Okay. And if I just holding you,
+00:02:19.440 then you just simply, you know, you just
+00:02:21.360 simply kind of like undo until the
+00:02:23.280 beginning of the game. And yes,
+00:02:25.040 basically this uh game allow me to
+00:02:28.239 basically keep track of everything that
+00:02:30.480 just happened. Okay. So let's say I just
+00:02:32.400 go around here. So like falling down
+00:02:34.000 here, falling down here and let's going
+00:02:36.879 around here. So basically I just do like
+00:02:38.879 whatever I want in this game. Yeah. So
+00:02:41.680 all of this movement is basically uh
+00:02:44.720 tracked by the system uh by the game and
+00:02:47.680 by doing the undo basically I can always
+00:02:50.879 going back at any point. Okay. So okay
+00:02:54.000 let's say I'm holding you right now. So
+00:02:55.760 we will see what happen. Yeah. As you
+00:02:57.519 can see just kind of going back here a
+00:02:58.959 bit and until the beginning of the game.
+00:03:01.680 Okay. That is basically what the under
+00:03:03.519 feature does.
+00:03:06.560 Okay. Now maybe about a bit of the
+00:03:09.360 technical detail. So what exactly
+00:03:10.959 happened here? Okay. So basically in
+00:03:13.680 order to implement the undo feature you
+00:03:17.360 must implement a link list data
+00:03:20.239 structure. Okay. That is lecture six. So
+00:03:23.840 if you have not completed uh link list
+00:03:26.720 uh lecture yet. So please uh make sure
+00:03:29.040 that you understand how it works and
+00:03:30.640 implement it first. Okay before you
+00:03:32.879 implement it for this assignment. And
+00:03:35.760 basically the main idea here is like
+00:03:38.319 every time the player make a valid
+00:03:41.599 movement,
+00:03:43.440 you will record the previous movement to
+00:03:47.760 the ling list and then move the player.
+00:03:50.319 Okay. So for example, if I move like
+00:03:52.319 right right
+00:03:54.720 up. Okay. So like all the previous
+00:03:57.920 movement will go to the ling list. Okay.
+00:04:00.480 For example, maybe you insert to the
+00:04:02.239 beginning of the link list and then when
+00:04:05.120 I press U like U like this, it will go
+00:04:09.439 to the beginning of the ling list,
+00:04:11.680 retrieve the information
+00:04:14.239 and then I will update the map. Okay, so
+00:04:17.519 that it goes back to that previous
+00:04:19.120 position. So that is like the main idea.
+00:04:23.840 How you want to implement it up to you.
+00:04:26.400 Okay, so you have the freedom to do
+00:04:28.080 that. Yeah, but please be aware whatever
+00:04:31.280 memory that you use. Okay, so you must
+00:04:34.560 free them correctly. Okay, that is the
+00:04:37.520 most important part. Okay, you must free
+00:04:40.320 them correctly. Okay, so it's a list,
+00:04:42.960 right? So let's say I go like okay going
+00:04:45.440 around. So as you can see now my the
+00:04:47.440 link list like will grow really really
+00:04:49.440 big now because I like move a lot here.
+00:04:54.080 Okay. So, like if I reach the goal,
+00:04:56.560 okay, then it should basically give me
+00:04:58.880 like zero memory links. Oh, actually,
+00:05:01.840 let's reach it, right? So, let's do file
+00:05:03.919 grind.
+00:05:05.600 Yep. So, file grind.
+00:05:11.199 Let's test it. Okay. So, okay. So, once
+00:05:14.400 again, I just move around here,
+00:05:18.240 here. Okay. So, just move a lot here.
+00:05:22.080 And let's go up here. Hold on again
+00:05:25.759 and reach the goal. Yep. As you can see
+00:05:29.280 that you see that I do so many
+00:05:31.280 allocation here. Why? Because I move a
+00:05:33.360 lot. Yeah. But at the end of the day, I
+00:05:36.240 still free them correctly. Okay. So even
+00:05:38.639 though yes, I allocate 12,600
+00:05:42.639 bytes. No problem. Why? Because I still
+00:05:45.680 free them all correctly. So that is what
+00:05:49.280 I want you to do. And this also apply
+00:05:51.680 when you lose the game. So let's say
+00:05:53.120 even I move here. But even though I lose
+00:05:55.120 the game, it should be zero licks. Okay,
+00:05:57.840 same with falling. Okay, so let's say I
+00:06:00.479 fall way a bit high here. Okay, once
+00:06:03.039 again zero licks.
+00:06:05.680 Okay, so doesn't matter what the
+00:06:07.120 situation is. So it you should be able
+00:06:09.840 to basically free all the allocated
+00:06:12.720 memory correctly. And that's basically
+00:06:16.080 how you can do the undo. And if you want
+00:06:18.479 to get full mark for this
+00:06:19.759 implementation,
+00:06:21.280 uh you must use the generic link list.
+00:06:25.039 Okay. So if you're not sure what generic
+00:06:26.800 link list is, so feel free to refer to
+00:06:28.560 the lecture again. Okay. But once again,
+00:06:30.080 basically it has to be a link list that
+00:06:32.400 basically can be applied to any kind of
+00:06:34.560 data. Okay. That is what generate link
+00:06:36.800 list is.
+00:06:39.120 All right. Okay. So this I think
+00:06:40.479 basically uh what I need to say about
+00:06:42.319 the undo feature. Yeah. Uh oh yeah. Uh
+00:06:45.280 just a quick reminder. So once again
+00:06:47.680 when you fall and then you undo again so
+00:06:50.160 it just simply go to the previous
+00:06:52.000 position right before the fall. So yes
+00:06:54.240 so any kind of uh basically movement
+00:06:56.960 during the falling that is not recorded
+00:07:00.000 by the link list. Okay so like for uh
+00:07:03.199 when you fall like from here and then
+00:07:04.800 like down here down here down here like
+00:07:06.479 so for each step of the falling that is
+00:07:08.800 not recorded. Okay you only record the
+00:07:11.599 most so the last position just before
+00:07:14.240 the fall. Okay. So that is like how you
+00:07:16.800 record the information. Okay. Once again
+00:07:19.759 uh so that's the main idea and uh you
+00:07:22.720 can store whatever information that you
+00:07:25.039 want as long as it works. Okay. And as
+00:07:30.400 long as you free the memory correctly.
+00:07:34.960 Yeah. So and okay then basically if you
+00:07:37.360 can uh if you successfully do that okay
+00:07:40.080 then it'll be considered that you
+00:07:41.759 managed to implement the undo feature
+00:07:44.800 correctly.
+00:07:46.639 All right so that's it uh for this undo
+00:07:48.639 feature uh video. So in that case then I
+00:07:50.880 will see you in the next video.

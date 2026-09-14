@@ -1,0 +1,107 @@
+Before starting the assignment, please ensure you are familiar with the C programming content up to Linked List (Lecture 6). Please practice the workshop questions to learn the concepts.
+
+At the very least, you need the knowledge up to File IO (Lecture 5) to even start the assignment. You can add the Linked List features later on.
+
+
+This advice serves as a rough guide on how to approach the assignment. You do not need to follow all steps exactly as long as your program works. Remember that your program need to work under C89 format with proper makefile and following the coding standards as specified on the assignment specification.
+
+    NOTE 1 : While you are working with your assignment, please update your makefile accordingly. For example, you will start with only one .c file and the main function. When there are more functions and more .c and .h files, update your makefile to ensure the compilation still works with correct file dependency.
+
+    NOTE 2 : Do a lot of testing. Everytime you add/fix a simple feature, compile and test it. Do not move on to the next feature until you fix the bugs. This will make it much easier to write a working program.
+
+
+
+Overall, these are the main steps:
+
+FILE IO
+    (1) Write a program that accept command line arguments. It should be able to accept the map file name as the argument.
+    (2) Attempt to open the file for reading purposes. If it fails, then produce appropriate error message, and end the program. Please DO NOT use exit() function. Please DO NOT use multiple returns in a single function for early exit.
+    (3) If it can be opened, then your program should read all the information from the map file and prepare the 2D map array accordingly. You can assume the content of the file is valid without any issue. fscanf() function will be very useful here. 
+    (4) You have the freedom to use your creativity on how to store this information. For example, you can immediately store the map information as 2D char array (e.g 'P', 'G', 'H', etc). OR you can store them as 2D int array for now, and interpret them later on when coding for the gameplay. Any approach is fine as long as it works (with reasonable game speed performance).
+
+        NOTE : Since this game involves Player movement all over the map, there will be a lot of overlapping between Player and Ladder objects. Please make sure that you don't accidentally overwrite the Ladder objects and remove them permanently from the map. For example, you can store the Blocks and Ladders in a 2D array, while the Player's position is stored as integers (e.g playerRow and playerCol). By doing this, you can keep track the Player movement even when they overlap with any Ladder object.
+
+    (5) Once finished, close the file.
+    (6) If successful, you have completed FILE IO stage.
+
+GAME INTERFACE
+    (1) Once we have all the map information, we can now start writing the code for the game interface.
+    (2) Write the code to print the whole map on the screen with appropriate characters and borders (along with the instructions what characters can be pressed). You will need nested FOR loop to read the array and print it out.
+
+        NOTE: For Block and Danger Zone, you can print an empty space char ' ' for now. Background colour can be added later.
+
+    (3) Then, add more codes to clear the terminal screen everytime before printing the map. (Watch the general supplementary video on this)
+    (4) If successful, you have completed basic GAME INTERFACE. (but no gameplay yet)    
+
+COLOUR
+    (1) Please watch the general supplementary video about adding background colour.
+    (2) The sample code has been provided. What we need to do is to add colour on specific objects when we are printing the map:
+        (a) "red"   foreground colour for Map Border.
+        (b) "white" background colour for Block.
+        (c) "red"   background colour for Danger Zone.
+        (d) "blue"  background colour for Player.
+        (e) "green" background colour for Goal.
+    (3) Do not forget to "reset" the colour each time.
+    (4) If successful, your map should have the correct colour.
+
+At this stage, the game interface is completed. Time to add gameplay functionalities. You can use CTRL+C key combination to end the program prematurely when you are testing it.
+
+PLAYER MOVEMENT (HORIZONTAL)
+    (1) First, add a code segment to prompt the user for a single char (let's say after the map is displayed on the terminal the first time). The program should be able to read the char without the need for the user to press "Enter" key. (Watch the general supplementary video on this topic)
+    (2) We will use this char to move the player horizontally. If the key is valid (i.e. 'a', OR 'd'), then your program should update the location of the player ('P') in the 2D map array, clear the screen, and reprint it.
+    (3) We can put this in a While loop so you can move the player again and again to explore the map. Keep in mind that this is still an incomplete game, so we do not have the condition to stop the loop for now. So, you can press CTRL+C to terminate the program.
+    (4) For simplicity, try to make the Player to move without restriction at first. So, the Player can go through everything (except the map border).
+    (5) Once the Player movement works, then add restrictions so that the Player cannot walk into Block.
+    (6) If successful, you have completed basic PLAYER MOVEMENT (HORIZONTAL). (basically the game lasts forever with the Player wandering left and right with no escape forever... until we terminate the game with CTRL+C)
+
+        NOTE : At this stage, the Player can move horizontally even when there is no solid object below them. You will address this when adding the falling animation. 
+
+PLAYER INTERACTION WITH DANGER ZONE AND GOAL
+    (1) Before we add the vertical movement and falling animation, you can add the winning and losing condition.
+    (2) When the Player reaches the Goal, your program should terminate the movement loop, and print the winning message.
+    (3) On the other hand, when the Player reaches any Danger Zone, your program should terminate the movement loop, and print the losing message.
+
+        NOTE : Do NOT use exit() function OR break; statement. It should terminate naturally by setting some kind of flag/variable to cause the loop to stop.
+
+    (4) To quickly test this, you can put the Goal and Danger Zone close to the Player in the same row for testing purposes.
+    (5) Please do not forget to free() all malloc'ed variables and close the map file to prevent memory leaks.
+    (6) If successful, you have added Winning and Losing condition.
+
+PLAYER MOVEMENT (VERTICAL)
+    (1) The Player can occupy the same position as a Ladder. In this state, The Player is considered to be holding onto the Ladder.
+    (2) While holding onto the Ladder, the Player can move both horizontally and vertically.
+    (3) The char 'w' and 's' are used to move the Player up and down the Ladder.
+    (4) Add the restriction so that the Player cannot climb through Block or map border.
+    (5) If the Player stands on top of a Ladder, they can climb down the Ladder.
+    (6) If successful, the Player should be able to climb up and down any Ladder.
+
+FALLING ANIMATION
+    (1) Please watch the General Supplementary Video about animation before you implement this.
+    (2) The game should detect whenever the Player is not standing on any solid object (Block, Ladder, bottom of the map) AND not holding onto the ladder. When it happens, the Player should fall downward steadily until they land on a solid object OR fall into Danger Zone.
+    (3) You can do this by steadily lower the position of the Player one frame at a time.
+    (4) Any keypress during the animation will not change the trajectory of the fall.
+    (5) If the Player reaches any Danger Zone during the animation, the animation ends and the program concludes with a losing message.
+    (6) If the Player lands on a solid object after falling less than 5 grids in height, the game continues and the Player resumes control.
+    (7) If the Player lands on a solid object after falling at least 5 grids in height, the game should conclude with a losing message. (Fall height is too much)
+    (8) If successful, then you have completed the full GAMEPLAY and adding additional losing condition by falling.
+
+        NOTE : Before adding the UNDO feature, please do some testings to ensure the gameplay works with different maps.
+
+
+UNDO FEATURE WITH LINKEDLIST
+    (1) This is the last feature you can add after completing the base game from all the previous steps.
+    (2) We will implement the UNDO feature. This allows us to keep track of all the movements of the Player and then UNDO the steps anytime we want. (as long as the game is not yet over)
+    (3) The UNDO is triggered by pressing char 'u'. If there is nothing to UNDO, then pressing 'u' will do nothing.
+    (4) You will need to implement a working linkedlist for this feature. Please refer to lecture 6 for the concept. If you want to get full mark for UNDO feature, you need to implement generic linkedlist (and UNDO feature fully working)
+
+        NOTE : The following algorithm is one way to implement UNDO feature. You can use alternative approach as long as it works. (But you still need to use linkedlist)
+
+    (5) The main idea is to use linkedlist to store the game states for every Player movement. Everytime the Player makes a valid movement (e.g not hitting the Block), then the program will save the current game state in the linkedlist. We can use insertFirst() function to store them.
+    (6) When the Player presses the 'u' key, then we use removeFirst() to retrieve the most recent game state to UNDO the game to the previous state. If the linkedlist is empty (e.g Game just started), then pressing 'u' will do nothing.
+    (7) The main question here is : "What exactly is a game state to be stored?" . This is up to your creativity. For example, you can create a struct that store a copy of Player's position, 2D array map, etc...
+    (8) Large memory usage is not a problem for this assignment as long as you free them properly.
+    (9) If your implementation is successful, then your program should be able to UNDO the game at any point. Congratulations!
+
+        NOTE 1: The falling animation is not stored in the linkedlist. You only need to store the Player's last position just before the fall.
+
+        NOTE 2: After you finish the assignment, please do more testings. Create your own map files and test your program.
