@@ -1,19 +1,38 @@
-# NOTE : This makefile is a supplementary file for demonstration purposes, hence it only consists of simple rules.
-#        When you write the makefile for your assignment, please make sure it has complete rules,
-#        prerequisites, all the necessary variables, and clean rules to get full mark on makefile category.
-#	     (Depending on the assignment requirement, you might even have to write CONDITIONAL COMPILATION)
+CC = gcc
+CFLAGS = -Wall -Wextra -ansi -pedantic
+TARGET = dungeon
+OBJECTS = main.o game.o map.o linkedList.o terminal.o newSleep.o color.o
 
-demo: demoAnimation.o newSleep.o color.o
-	gcc demoAnimation.o newSleep.o color.o -o demo
+.PHONY: all clean test
 
-demoAnimation.o: demoAnimation.c newSleep.h color.h
-	gcc -Wall -ansi -pedantic demoAnimation.c -c
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -o $(TARGET)
+
+main.o: main.c game.h map.h linkedList.h
+	$(CC) $(CFLAGS) -c main.c
+
+game.o: game.c game.h map.h linkedList.h terminal.h newSleep.h color.h
+	$(CC) $(CFLAGS) -c game.c
+
+map.o: map.c map.h
+	$(CC) $(CFLAGS) -c map.c
+
+linkedList.o: linkedList.c linkedList.h
+	$(CC) $(CFLAGS) -c linkedList.c
+
+terminal.o: terminal.c terminal.h
+	$(CC) $(CFLAGS) -c terminal.c
 
 newSleep.o: newSleep.c newSleep.h
-	gcc -Wall -ansi -pedantic newSleep.c -c
+	$(CC) $(CFLAGS) -c newSleep.c
 
 color.o: color.c color.h
-	gcc -Wall -ansi -pedantic color.c -c
+	$(CC) $(CFLAGS) -c color.c
+
+test: $(TARGET)
+	sh tests.sh
 
 clean:
-	rm demo demoAnimation.o newSleep.o color.o	
+	rm -f $(TARGET) $(OBJECTS)

@@ -1,0 +1,39 @@
+name: Build and test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  c89:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile with C89 warnings
+        run: make clean all
+
+      - name: Run scripted gameplay tests
+        run: make test
+
+      - name: Install Valgrind
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes valgrind
+
+      - name: Check winning and losing runs for leaks
+        run: |
+          printf '%s' 'dudddwwwwwddwwwddddddddddddaaaaaddddd' |
+            valgrind --leak-check=full --show-leak-kinds=all \
+              --errors-for-leak-kinds=all --error-exitcode=99 \
+              ./dungeon map.txt >/dev/null
+          printf '%s' 'dddwwwwwaaa' |
+            valgrind --leak-check=full --show-leak-kinds=all \
+              --errors-for-leak-kinds=all --error-exitcode=99 \
+              ./dungeon map.txt >/dev/null
